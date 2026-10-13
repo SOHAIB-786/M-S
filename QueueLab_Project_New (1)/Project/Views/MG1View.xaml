@@ -1,0 +1,51 @@
+<UserControl x:Class="QueueSimulatorApp.Views.MG1View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:ctl="clr-namespace:QueueSimulatorApp.Controls">
+    <!-- PAGE 2 : M/G/1  (inputs -> MG1View.xaml.cs -> QueueCalculator.CalculateMG1) -->
+    <StackPanel MaxWidth="720" HorizontalAlignment="Center">
+
+        <Border Style="{StaticResource Hero}">
+            <StackPanel>
+                <TextBlock Text="M/G/1 Queue" FontSize="30" FontWeight="Bold" Foreground="White"/>
+                <TextBlock Text="Poisson arrivals, general service-time distribution, a single server (Pollaczek–Khinchine). Exact results."
+                           FontSize="14" Foreground="#E0E7FF" Margin="0,6,0,14" TextWrapping="Wrap"/>
+                <StackPanel Orientation="Horizontal">
+                    <Border Style="{StaticResource Badge}"><TextBlock Text="Arrival: Poisson (M)" Foreground="White" FontSize="12"/></Border>
+                    <Border Style="{StaticResource Badge}"><TextBlock Text="Service: General (G)" Foreground="White" FontSize="12"/></Border>
+                    <Border Style="{StaticResource Badge}"><TextBlock Text="1 server" Foreground="White" FontSize="12"/></Border>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- ============ INPUTS ============ -->
+            <Border Style="{StaticResource Card}" Margin="0,18,0,0">
+                <StackPanel>
+                    <TextBlock Text="Inputs" Style="{StaticResource CardTitle}"/>
+
+                    <ctl:RateTimeInput x:Name="arrivalInput" Title="Arrival"
+                                       MeanLabel="Mean inter-arrival time" RateLabel="Arrival rate λ"/>
+                    <Rectangle Height="1" Fill="{StaticResource CardBorder}" Margin="0,16"/>
+                    <ctl:DistributionInput x:Name="serviceInput" Title="Service time"
+                                           MeanLabel="Mean service time" RateLabel="Service rate μ"
+                                           VariabilityName="service time"/>
+
+                    <TextBlock x:Name="txtError" Foreground="{StaticResource Danger}" FontWeight="Bold"
+                               Margin="0,16,0,0" TextWrapping="Wrap" Visibility="Collapsed"/>
+
+                    <Grid Margin="0,20,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="Calculate" Style="{StaticResource PrimaryButton}" Click="Calculate_Click"/>
+                        <Button Grid.Column="1" Content="Reset" Width="100" Margin="10,0,0,0"
+                                Style="{StaticResource SecondaryButton}" Click="Reset_Click"/>
+                    </Grid>
+                </StackPanel>
+            </Border>
+
+        <!-- ============ RESULTS ============ -->
+        <ctl:ResultsPanel x:Name="results" Margin="0,18,0,0"/>
+    </StackPanel>
+</UserControl>

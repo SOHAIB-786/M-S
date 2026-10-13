@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>disable</Nullable>
+    <RootNamespace>QueueSimulatorApp</RootNamespace>
+    <AssemblyName>QueueSimulatorApp</AssemblyName>
+    <ApplicationIcon />
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+</Project>

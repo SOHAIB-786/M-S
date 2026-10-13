@@ -1,0 +1,58 @@
+<UserControl x:Class="QueueSimulatorApp.Controls.DistributionInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        SERVICE TIME input (used by M/G/1 and G/G/1).
+        The drop-down has ONLY 3 choices   (item ORDER = DistributionInput.Method* constants)
+          0  Uniform distribution  ->  Min (a) and Max (b) boxes open.
+                                       mean = (a+b)/2 , variance = (b-a)^2 / 12   (calculated automatically)
+          1  Mean                  ->  one box for the mean service time    + Variance box
+          2  Rate                  ->  one box for the service rate (mu)    + Variance box
+        TryGet() always returns (mean service time, variance of service time).
+    -->
+    <StackPanel>
+        <TextBlock x:Name="lblTitle" Style="{StaticResource SectionLabel}" Margin="0,0,0,6"/>
+
+        <ComboBox x:Name="cmbMethod" Style="{StaticResource InputCombo}" SelectedIndex="0"
+                  SelectionChanged="Method_Changed">
+            <ComboBoxItem Content="Uniform distribution"/>
+            <ComboBoxItem Content="Mean"/>
+            <ComboBoxItem Content="Rate"/>
+        </ComboBox>
+
+        <!-- Condition 1: Uniform(Min a, Max b) -->
+        <StackPanel x:Name="pnlUniform" Margin="0,12,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                    <TextBlock Text="Min (a)" Style="{StaticResource HintText}" Margin="0,0,0,2"/>
+                    <TextBox x:Name="txtMin" Style="{StaticResource InputBox}"
+                             PreviewTextInput="Numeric_PreviewTextInput" TextChanged="Input_Changed"/>
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Text="Max (b)" Style="{StaticResource HintText}" Margin="0,0,0,2"/>
+                    <TextBox x:Name="txtMax" Style="{StaticResource InputBox}"
+                             PreviewTextInput="Numeric_PreviewTextInput" TextChanged="Input_Changed"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+
+        <!-- Condition 2 / 3: plain Mean or plain Rate -->
+        <StackPanel x:Name="pnlValue" Margin="0,12,0,0" Visibility="Collapsed">
+            <TextBlock x:Name="lblValue" Style="{StaticResource HintText}" Margin="0,0,0,2"/>
+            <TextBox x:Name="txtValue" Style="{StaticResource InputBox}"
+                     PreviewTextInput="Numeric_PreviewTextInput"/>
+
+            <TextBlock x:Name="lblVar" Style="{StaticResource HintText}" Margin="0,12,0,2"/>
+            <TextBox x:Name="txtVar" Style="{StaticResource InputBox}"
+                     PreviewTextInput="Numeric_PreviewTextInput"/>
+        </StackPanel>
+
+        <!-- Live preview for Uniform: the mean and variance that will be used -->
+        <TextBlock x:Name="txtPreview" Margin="0,8,0,0" FontSize="13" FontWeight="SemiBold"
+                   Foreground="{StaticResource Accent}" TextWrapping="Wrap"/>
+    </StackPanel>
+</UserControl>

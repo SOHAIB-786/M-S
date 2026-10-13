@@ -1,0 +1,71 @@
+<UserControl x:Class="QueueSimulatorApp.Controls.ResultsPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- Results card: shows all computed values as tiles + the OUTPUT time-unit drop-down -->
+    <Border x:Name="pnlResults" Style="{StaticResource Card}" Visibility="Collapsed">
+        <StackPanel>
+            <TextBlock Text="Results" Style="{StaticResource CardTitle}" Margin="0,0,0,10"/>
+
+            <!-- Time units live HERE (not in the inputs) -->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Margin="0,0,6,0">
+                    <TextBlock Text="Input values are in" Style="{StaticResource HintText}" Margin="0,0,0,2"/>
+                    <ComboBox x:Name="cmbInUnit" Style="{StaticResource InputCombo}"
+                              SelectedIndex="1" SelectionChanged="Unit_Changed">
+                        <ComboBoxItem Content="Seconds"/>
+                        <ComboBoxItem Content="Minutes"/>
+                        <ComboBoxItem Content="Hours"/>
+                    </ComboBox>
+                </StackPanel>
+                <StackPanel Grid.Column="1" Margin="6,0,0,0">
+                    <TextBlock Text="Show results in" Style="{StaticResource HintText}" Margin="0,0,0,2"/>
+                    <ComboBox x:Name="cmbOutUnit" Style="{StaticResource InputCombo}"
+                              SelectedIndex="1" SelectionChanged="Unit_Changed">
+                        <ComboBoxItem Content="Seconds"/>
+                        <ComboBoxItem Content="Minutes"/>
+                        <ComboBoxItem Content="Hours"/>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+
+            <TextBlock x:Name="txtNote" Margin="0,10,0,0" FontStyle="Italic" TextWrapping="Wrap"
+                       Foreground="{StaticResource TextMuted}" Visibility="Collapsed"/>
+
+            <ItemsControl x:Name="itemsResults" Margin="-5,10,-5,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="5" Padding="14,10" CornerRadius="10"
+                                Background="{StaticResource Tile}" BorderBrush="{StaticResource TileBorder}"
+                                BorderThickness="1">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Symbol}" FontSize="20" FontWeight="Bold"
+                                               Foreground="{StaticResource Accent}"/>
+                                    <TextBlock Text="{Binding Name}" FontSize="12" Margin="8,0,0,0"
+                                               VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="150"
+                                               Foreground="{StaticResource TextMuted}"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                    <TextBlock Text="{Binding Value}" FontSize="20" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextDark}"/>
+                                    <TextBlock Text="{Binding Unit}" FontSize="12" Margin="6,0,0,3"
+                                               VerticalAlignment="Bottom"
+                                               Foreground="{StaticResource TextMuted}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Border>
+</UserControl>

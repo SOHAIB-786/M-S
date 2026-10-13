@@ -1,0 +1,28 @@
+<UserControl x:Class="QueueSimulatorApp.Controls.RateTimeInput"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!--
+        One "Mean OR Rate" input row:   [ Mean / Rate drop-down ]  [ value ]
+        No time unit here - the unit (hours / minutes / seconds) is chosen in the Results panel.
+        Every instance keeps its OWN Mean/Rate choice (Arrival can be a mean while Service is a rate).
+    -->
+    <StackPanel>
+        <TextBlock x:Name="lblTitle" Style="{StaticResource SectionLabel}" Visibility="Collapsed"/>
+        <TextBlock x:Name="lblHint" Style="{StaticResource HintText}" Margin="0,0,0,4"/>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ComboBox x:Name="cmbMode" Grid.Column="0" Style="{StaticResource InputCombo}"
+                      SelectedIndex="0" SelectionChanged="Option_Changed">
+                <ComboBoxItem Content="Mean (time)"/>
+                <ComboBoxItem Content="Rate (per time)"/>
+            </ComboBox>
+
+            <TextBox x:Name="txtValue" Grid.Column="1" Margin="8,0,0,0" Style="{StaticResource InputBox}"
+                     PreviewTextInput="Numeric_PreviewTextInput"/>
+        </Grid>
+    </StackPanel>
+</UserControl>
